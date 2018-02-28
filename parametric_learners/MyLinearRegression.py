@@ -12,19 +12,23 @@ class MyLinearRegression():
         self.add_intercept = add_intercept
 
     def fit(self, X, y):
+        n = X.shape[0]
         if self.add_intercept:
-            intercept = np.ones((X.shape[0], 1))
+            intercept = np.ones((n, 1))
             X = np.hstack((intercept, X))
 
         self.weights_ = np.zeros(X.shape[1])
 
         for step in range(self.num_steps):
             predictions = np.dot(X, self.weights_)
-
-            # Update weights with Gradient
             error = y - predictions
             gradient = np.dot(X.T, error)
             self.weights_ += self.learning_rate * gradient
+
+            # predictions = np.dot(X, self.weights_)
+            # cost = np.sum((y - predictions)**2)/n
+            # gradient = -(2/n) * np.sum(y - predictions)
+            # self.weights_ -= self.learning_rate * gradient
 
         return self
 
@@ -77,8 +81,6 @@ def main():
 
     print('Accuracy - MyLinReg, {}'.format(mylinreg.score(X, y)))
     print('Accuracy - SKLearn, {}'.format(sklinreg.score(X, y)))
-
-
 
 if __name__ == '__main__':
     main()
