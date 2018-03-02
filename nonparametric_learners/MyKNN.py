@@ -1,7 +1,5 @@
 import numpy as np
-from scipy import stats
 import matplotlib.pyplot as plt
-from collections import Counter
 from sklearn.model_selection import train_test_split
 
 class MyKNN():
